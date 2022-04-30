@@ -12,6 +12,7 @@ public class Schedule {
 //    }
 
     public void displayTripOfferings() throws SQLException {
+        System.out.println("---Trip Offerings---");
         Statement st  = con.createStatement();
         ResultSet rs = st.executeQuery("SELECT * FROM trip_offering");
         while(rs.next()){
@@ -30,6 +31,7 @@ public class Schedule {
     }
 
     public void displayTripOfferings(String startLocation, String destination, String date) throws SQLException {
+        System.out.println("---Trip Offerings that match input---");
         Statement st = con.createStatement();
         ResultSet rs = st.executeQuery(String.format("SELECT * FROM trip_offering INNER JOIN trip ON trip_offering.trip_number = trip.trip_number WHERE trip.start_location_name = '%s' AND trip.destination_name = '%s' AND date = '%s'", startLocation, destination, date));
         while(rs.next()){
@@ -52,5 +54,11 @@ public class Schedule {
         Statement st = con.createStatement();
         st.executeUpdate(String.format("DELETE FROM trip_offering WHERE trip_number = %d AND date = '%s' AND scheduled_start_time = '%s'", tripNum, date, scheduledStartTime));
         System.out.println("---Trip Offering Deleted---");
+    }
+
+    public void addTripOffering(int tripNum, String date, String scheduledStart, String scheduledArrival, String driverName, int busID) throws SQLException {
+        Statement st = con.createStatement();
+        st.executeUpdate(String.format("INSERT INTO trip_offering VALUES (%d, '%s', '%s', '%s', '%s', %d)", tripNum, date, scheduledStart, scheduledArrival, driverName, busID));
+        System.out.println("---Trip Offering Added---");
     }
 }

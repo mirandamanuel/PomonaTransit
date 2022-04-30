@@ -11,8 +11,9 @@ public class Main {
 
             schedule.displayTripOfferings();
             //schedule.displayTripOfferings("A", "B", "2022-06-01");
-
-            schedule.deleteTripOffering(200, "2022-06-01", "08:15:00");
+            schedule.addTripOffering(300, "2022-06-01", "08:15:00", "08:30:00", "Eva Evante", 5);
+            schedule.displayTripOfferings();
+            schedule.deleteTripOffering(300, "2022-06-01", "08:15:00");
             schedule.displayTripOfferings();
 
             con.close();
