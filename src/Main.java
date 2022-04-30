@@ -10,7 +10,10 @@ public class Main {
             Schedule schedule = new Schedule(con);
 
             schedule.displayTripOfferings();
-            schedule.displayTripOfferings("A", "B", "2022-06-01");
+            //schedule.displayTripOfferings("A", "B", "2022-06-01");
+
+            schedule.deleteTripOffering(200, "2022-06-01", "08:15:00");
+            schedule.displayTripOfferings();
 
             con.close();
 

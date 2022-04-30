@@ -31,7 +31,7 @@ public class Schedule {
 
     public void displayTripOfferings(String startLocation, String destination, String date) throws SQLException {
         Statement st = con.createStatement();
-        ResultSet rs = st.executeQuery(String.format("SELECT * FROM trip_offering INNER JOIN trip ON trip_offering.trip_number = trip.trip_number WHERE trip.start_location_name = '%s' AND trip.destination_name = '%s' AND date = '%s'",startLocation, destination, date));
+        ResultSet rs = st.executeQuery(String.format("SELECT * FROM trip_offering INNER JOIN trip ON trip_offering.trip_number = trip.trip_number WHERE trip.start_location_name = '%s' AND trip.destination_name = '%s' AND date = '%s'", startLocation, destination, date));
         while(rs.next()){
             String startLoc = rs.getString("start_location_name");
             String destLoc = rs.getString("destination_name");
@@ -45,9 +45,12 @@ public class Schedule {
                     ", Driver Name: " + driverName + ", Bus ID: " + busID);
         }
         System.out.println("---End of results---");
-
-
-
         st.close();
+    }
+
+    public void deleteTripOffering(int tripNum, String date, String scheduledStartTime) throws SQLException {
+        Statement st = con.createStatement();
+        st.executeUpdate(String.format("DELETE FROM trip_offering WHERE trip_number = %d AND date = '%s' AND scheduled_start_time = '%s'", tripNum, date, scheduledStartTime));
+        System.out.println("---Trip Offering Deleted---");
     }
 }
