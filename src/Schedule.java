@@ -7,9 +7,6 @@ public class Schedule {
         this.con = con;
 
     }
-//    public void addTrip(int tripNum, String date, String scheduledStartTime) throws SQLException {
-//
-//    }
 
     public void displayTripOfferings() throws SQLException {
         System.out.println("---Trip Offerings---");
@@ -60,5 +57,17 @@ public class Schedule {
         Statement st = con.createStatement();
         st.executeUpdate(String.format("INSERT INTO trip_offering VALUES (%d, '%s', '%s', '%s', '%s', %d)", tripNum, date, scheduledStart, scheduledArrival, driverName, busID));
         System.out.println("---Trip Offering Added---");
+    }
+
+    public void updateDriver(String newDriverName, int tripNum, String date, String scheduledStart) throws SQLException {
+        Statement st = con.createStatement();
+        st.executeUpdate(String.format("UPDATE trip_offering SET driver_name = '%s' WHERE trip_number = %d AND date = '%s' AND scheduled_start_time = '%s'", newDriverName, tripNum, date, scheduledStart));
+        System.out.println("---Driver updated---");
+    }
+
+    public void updateBus(int newBus, int tripNum, String date, String scheduledStart) throws SQLException {
+        Statement st = con.createStatement();
+        st.executeUpdate(String.format("UPDATE trip_offering SET bus_id = %d WHERE trip_number = %d AND date = '%s' AND scheduled_start_time = '%s'", newBus, tripNum, date, scheduledStart));
+        System.out.println("---Bus updated---");
     }
 }
